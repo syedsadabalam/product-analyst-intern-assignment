@@ -6,7 +6,7 @@ This repository contains my completed take-home assignment for the Product Analy
 
 ## Submission
 
-**[Download / view the assignment](analysis.docx)**
+**[Download / view the assignment](analysis.md)**
 
 ## Supporting Files
 
