@@ -6,32 +6,32 @@ I compared the API documentation with the three API responses.
 
 ### 1\. status has an undocumented value
 
-- **Docs:**status can be pending, shipped, delivered, or cancelled.
-- **Actual:**orders_page1.json -> ord_1003.status is refunded.
+- **Docs:** status can be pending, shipped, delivered, or cancelled.
+- **Actual:** orders_page1.json -> ord_1003.status is refunded.
 - **Impact:** Yes. A system built using the documented list may not know how to handle this order.
 
 ### 2\. customer.email can be null
 
-- **Docs:**customer.email is a string and is always present.
-- **Actual:**orders_page2.json -> ord_1005.customer.email is null.
+- **Docs:** customer.email is a string and is always present.
+- **Actual:** orders_page2.json -> ord_1005.customer.email is null.
 - **Impact:** Yes. Code that expects a string may fail or reject the order.
 
 ### 3\. ord_1006 uses a different money format
 
 - **Docs:** All money fields are integers in the smallest currency unit. For example, \$54.70 is returned as 5470.
-- **Actual:**orders_page2.json -> ord_1006 has subtotal: 44.0, tax: 3.63, shipping: 5.99, and total: 53.62.
+- **Actual:** orders_page2.json -> ord_1006 has subtotal: 44.0, tax: 3.63, shipping: 5.99, and total: 53.62.
 - **Impact:** Yes, and this is serious. A customer could divide all totals by 100 as the docs say and get the wrong amount for this order.
 
 ### 4\. Pagination says there is no next page when there is one
 
-- **Docs:**has_more should be used to decide whether to request another page.
-- **Actual:**orders_page1.json has has_more: false, but it also has next_cursor: "cur_8f2a19bd". The candidate pack shows that this cursor was used to get orders_page2.json.
+- **Docs:** has_more should be used to decide whether to request another page.
+- **Actual:** orders_page1.json has has_more: false, but it also has next_cursor: "cur_8f2a19bd". The candidate pack shows that this cursor was used to get orders_page2.json.
 - **Impact:** Yes. A client following has_more would stop after page 1 and miss orders.
 
 ### 5\. Missing order returns 200 instead of 404
 
-- **Docs:**GET /v1/orders/{id} returns 404 if the order does not exist.
-- **Actual:**order_ord_9999.json is for a non-existing order and the README shows HTTP 200; the response is {"order": null}.
+- **Docs:** GET /v1/orders/{id} returns 404 if the order does not exist.
+- **Actual:** order_ord_9999.json is for a non-existing order and the README shows HTTP 200; the response is {"order": null}.
 - **Impact:** Yes. A client may treat the request as successful and may not handle the missing order correctly.
 
 ### Most serious issue
@@ -60,7 +60,7 @@ I would confirm the money format and refund rule with the API team before using 
 
 ## Task 3A - Reply to Priya
 
-**Subject: Re: Revenue reconciliation\\**
+**Subject: Revenue reconciliation **
 
 Hi Priya,
 
@@ -68,7 +68,7 @@ I found two data issues that can explain the difference in the revenue report.
 
 Most orders return money in cents, as documented, but ord_1006 returns its amounts as dollar values. Also, ord_1003 is marked as refunded.
 
-Using the non-refunded orders and treating ord_1006 as \$53.62, I get total revenue of **\$225.70**.
+Using the non-refunded orders and treating ord_1006 as \$53.62, I get total revenue of **$225.70**.
 
 The money format is inconsistent, so I would confirm the expected format with the API team before using the API data for financial reporting.
 
@@ -79,9 +79,9 @@ Syed Sadab Alam
 
 ### Money fields returned in the wrong unit
 
-**What to look at:**GET /v1/orders, order ord_1006
+**What to look at:** GET /v1/orders, order ord_1006
 
-**Actual:**subtotal = 44.0, tax = 3.63, shipping = 5.99, total = 53.62.
+**Actual:** subtotal = 44.0, tax = 3.63, shipping = 5.99, total = 53.62.
 
 **Expected:** Following the API documentation, these should be integer values in the smallest currency unit: 4400, 363, 599, and 5362.
 
