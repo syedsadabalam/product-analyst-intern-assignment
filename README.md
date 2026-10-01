@@ -12,7 +12,7 @@ This repository contains my completed take-home assignment for the Product Analy
 
 ## Video
 
-**2-minute introduction:** (https://youtube.com/shorts/k9w0a9sPosM)]
+**2-minute introduction:** (https://youtube.com/shorts/k9w0a9sPosM)
 
 ## Supporting Files
 
