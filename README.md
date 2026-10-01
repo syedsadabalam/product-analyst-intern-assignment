@@ -1,12 +1,18 @@
 # Product Analyst Intern - Take-Home Assignment
 
+**Candidate:** Syed Sadab Alam
+
 Hi,
 
 This repository contains my completed take-home assignment for the Product Analyst Intern role.
 
 ## Submission
 
-**[Download / view the assignment](analysis.md)**
+**[Download / view the assignment](Syed_Sadab_Alam_Product_Analyst_Assignment.md)**
+
+## Video
+
+**2-minute introduction:** (https://youtube.com/shorts/k9w0a9sPosM)]
 
 ## Supporting Files
 
